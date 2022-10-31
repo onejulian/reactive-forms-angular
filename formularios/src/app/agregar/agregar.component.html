@@ -1,0 +1,60 @@
+<br>
+<div class="container">
+
+    <form [formGroup]="formularioCreado">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre">
+            <br>
+            <div *ngIf="formularioCreado.controls['nombre'].invalid && formularioCreado.controls['nombre'].dirty "
+                class="alert alert-danger" role="alert">
+                <span *ngIf="formularioCreado.controls['nombre'].errors?.['required'] ">El nombre es requerido</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Correo</label>
+            <input type="text" class="form-control" formControlName="correo">
+            <br>
+            <div *ngIf="formularioCreado.controls['correo'].invalid && formularioCreado.controls['correo'].dirty">
+                <div *ngIf="formularioCreado.controls['correo'].errors?.['required']" class="alert alert-danger"
+                    role="alert">
+                    El correo es requerido
+                </div>
+                <div *ngIf="formularioCreado.controls['correo'].errors?.['email']" class="alert alert-danger"
+                    role="alert">
+                    No parece un correo válido
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" formControlName="contrasenia">
+            <br>
+            <div
+                *ngIf="formularioCreado.controls['contrasenia'].invalid && formularioCreado.controls['contrasenia'].dirty">
+                <div *ngIf="formularioCreado.controls['contrasenia'].errors?.['required']" class="alert alert-danger"
+                    role="alert">
+                    La contraseña es requerida
+                </div>
+                <div *ngIf="formularioCreado.controls['contrasenia'].errors?.['minlength']" class="alert alert-danger"
+                    role="alert">
+                    La contraseña debe tener al menos 8 caracteres
+                </div>
+            </div>
+        </div>
+        <button *ngIf="esNuevo" [disabled]="!formularioCreado.valid" class="btn btn-primary" (click)="agregarUsuario()">Agregar</button>
+        <button *ngIf="!esNuevo" [disabled]="!formularioCreado.valid" class="btn btn-danger" (click)="editar()">Editar</button>
+    </form>
+
+</div>
+<br>
+<div *ngFor="let usuario of usuarios; let posicion = index" class="container">
+    <div class="borde">
+        <h4> {{usuario.nombre}} </h4>
+        <p> {{usuario.correo}} </p>
+        <p> {{usuario.password}} </p>
+        <button class="btn btn-warning" (click)="editarUsuario(posicion)">Editar</button>
+        <button class="btn btn-danger mx-2" (click)="eliminarUsuario(posicion)">Eliminar</button>
+        <br>
+    </div>
+</div>
