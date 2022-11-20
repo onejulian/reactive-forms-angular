@@ -3,7 +3,7 @@
 
     <form [formGroup]="formularioCreado">
         <div class="form-group">
-            <label>Name</label>
+            <label>Nombre</label>
             <input type="text" class="form-control" formControlName="nombre">
             <br>
             <div *ngIf="formularioCreado.controls['nombre'].invalid && formularioCreado.controls['nombre'].dirty "
